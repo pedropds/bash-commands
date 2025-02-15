@@ -1,0 +1,10 @@
+[package]
+name = "cliphistory"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+arboard = "3.2"         # Clipboard access
+serde = { version = "1.0", features = ["derive"] }  # Serialization/Deserialization
+serde_json = "1.0"      # JSON handling
+chrono = { version = "0.4", features = ["serde"] }  # Timestamp handling

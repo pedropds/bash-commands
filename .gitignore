@@ -1,0 +1,7 @@
+/*/target
+/*/.idea
+
+# Cliphistory
+/cliphistory/target/.rustc_info.json
+/cliphistory/clipboard_history.json
+/cliphistory/Cargo.lock
