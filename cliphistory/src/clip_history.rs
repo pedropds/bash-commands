@@ -1,10 +1,11 @@
 use arboard::Clipboard;
 use std::{fs, thread};
 use std::sync::{Arc, Mutex};
+use std::time::Duration;
 use chrono::Utc;
 use crate::clip_model::ClipEntry;
 
-const HISTORY_FILE: &str = "clipboard_history.json";
+const HISTORY_FILE: &str = "/tmp/cliphistory/clipboard_history.json";
 const HISTORY_SIZE: u8 = 150;
 
 pub fn listen_clipboard() {
@@ -18,6 +19,9 @@ pub fn listen_clipboard() {
     }
 
     let history = Arc::new(Mutex::new(load_history()));
+
+    // Create the path
+    fs::create_dir_all("/tmp/cliphistory").expect("Failed to create /tmp/cliphistory directory");
 
     loop {
         if let Ok(text) = clipboard.get_text() {
@@ -43,6 +47,8 @@ pub fn listen_clipboard() {
                 save_history_async(Arc::clone(&history));
 
                 last_clip = Some(trimmed_text);
+
+                thread::sleep(Duration::from_millis(300)); // Adjust the interval
             }
         }
     }
